@@ -1,6 +1,18 @@
 import requests
 import os
+import sys
 from bs4 import BeautifulSoup
+
+#'C:\\Users\\nEW u\\Desktop\\study\\4th sem\\Design &Analysis of Algorithms'
+path = input('Enter the path where to create a new folder :')
+originalpath = os.getcwd()
+os.chdir(path)
+path = path+'\\Answers-Introduction-to-Algorithms'
+if os.path.exists(path):
+    sys.exit()
+
+os.makedirs('Answers-Introduction-to-Algorithms')
+os.chdir(path)
 
 web_page = 'https://ita.skanev.com'
 r = requests.get(web_page)
@@ -12,14 +24,6 @@ a = htmlSoup.find_all('a')
 ref = []
 for x in a:
     ref.append(str(x))
-#'C:\\Users\\nEW u\\Desktop\\study\\4th sem\\Design &Analysis of Algorithms'
-path = input('Enter the path where to create a new folder :')
-os.chdir(path)
-path=path+'\\Answers-Introduction-to-Algorithms'
-if not os.path.exists(path):
-    os.makedirs('Answers-Introduction-to-Algorithms')
-
-os.chdir(path)
 
 extension = ''
 for line in range(len(ref)):
@@ -38,6 +42,10 @@ for line in range(len(ref)):
         print("currently copying", extension)
     except Exception as exc:
         pass
+
+os.chdir(originalpath)
+file_object = open('path.txt','wb')
+file_object.write(path)
 
 
 
